@@ -21,59 +21,59 @@ The table below contains a summary of found bugs/issues.
     <th>Paragraph</th>
   </tr>
   <tr>
-    <td><a href=#2-Token-stealing>Token stealing</a></td>
+    <td><a href=#2-token-stealing>Token stealing</a></td>
     <td rowspan="1">Critical</td>
     <td>Lighthouse</td>
   </tr>
   <tr>
-  <td><a href=#1-Possible-keccak256-collisions>Possible keccak256 collisions</a></td>
+  <td><a href=#1-possible-keccak256-collisions>Possible keccak256 collisions</a></td>
     <td>Major</td>
     <td>RobotLiability</td>
   </tr>
   <tr>
-  <td><a href=#1-Gas-improvement>Gas improvement</a></td>
+  <td><a href=#1-gas-improvement>Gas improvement</a></td>
     <td rowspan="2">Medium</td>
     <td>Ambix</td>
   </tr>
   <tr>
-  <td><a href=#1-Dangerous-function>Dangerous function</a></td>
+  <td><a href=#1-dangerous-function>Dangerous function</a></td>
     <td>Congress (MultiSig)</td>
   </tr>
   <tr>
-  <td><a href=#2-Validation-after-storing>Validation after storing</a></td>
+  <td><a href=#2-validation-after-storing>Validation after storing</a></td>
   <td rowspan="7">Minor</td>
   <td>Ambix</td>
   </tr>
   <tr>
-  <td><a href=#1-Possible-reentracy-at-withdraw>Possible reentracy at withdraw</a></td>
+  <td><a href=#1-possible-reentracy-at-withdraw>Possible reentracy at withdraw</a></td>
   <td rowspan="2">Lighthouse</td>
   </tr>
   <tr>
-  <td><a href=#5-Using-txorigin>Using tx.origin</a></td>
+  <td><a href=#5-using-txorigin>Using tx.origin</a></td>
   </tr>
   <tr>
-  <td><a href=#2-Possible-reentracy-at-finalize>Possible reentracy at finalize</a></td>
+  <td><a href=#2-possible-reentracy-at-finalize>Possible reentracy at finalize</a></td>
   <td>RobotLiability</td>
   </tr>
   <tr>
-  <td><a href=#1-Possible-integer-overflow>Possible integer overflow</a></td>
+  <td><a href=#1-possible-integer-overflow>Possible integer overflow</a></td>
   <td>LiabilityFactory</td>
   </tr>
   <tr>
-  <td><a href=#1-Using-old-Openzeppelin-lib-version>Using old Openzeppelin lib version</a></td>
+  <td><a href=#1-using-old-openzeppelin-lib-version>Using old Openzeppelin lib version</a></td>
   <td>XRT</td>
   </tr>
   <tr>
-  <td><a href=#2-Solidity-version-too-old>Solidity version too old</a></td>
+  <td><a href=#2-solidity-version-too-old>Solidity version too old</a></td>
   <td>Congress (MultiSig)</td>
   </tr>
   <tr>
-  <td><a href=#3-Address-colliding-around-zero-index-in-indexOf>Address colliding around zero index in indexOf</a></td>
+  <td><a href=#3-address-colliding-around-zero-index-in-indexof>Address colliding around zero index in indexOf</a></td>
   <td rowspan="7">Note</td>
   <td rowspan="2">Lighthouse</td>
   </tr>
   <tr>
-  <td><a href=#3-Address-colliding-around-zero-index-in-indexOf>Possible integer overflow</a></td>
+  <td><a href=#4-possible-integer-overflow>Possible integer overflow</a></td>
   </tr>
 </table>
 
