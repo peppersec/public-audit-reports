@@ -1,3 +1,5 @@
+![PepperSec](github_header.png)
+
 # Public audit reports
 This repo contains disclosure reports by PepperSec.
 
