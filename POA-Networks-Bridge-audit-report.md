@@ -66,7 +66,7 @@ Severity: **Minor**
 
 The new version of openzeppelin `Ownable` contract has `renounceOwnership` function. See [here](https://github.com/OpenZeppelin/openzeppelin-solidity/blob/5daaf60d11ee2075260d0f3adfb22b1c536db983/contracts/ownership/Ownable.sol#L42). So this function is inherited by your `ERC677BridgeToken` silently. The function seems to be superfluous ([not only for me](https://github.com/OpenZeppelin/openzeppelin-solidity/issues/903)). Is that necessary for your project? 
 
-*Recommendations:* Consider rewrite `renounceOwnership` to empty implementation (as you've done for [finishMinting](https://github.com/poanetwork/poa-bridge-contracts/blob/refactor_v1/contracts/ERC677BridgeToken.sol#L55)). 
+*Recommendations:* Consider rewrite `renounceOwnership` to empty implementation (as you've done for [finishMinting](https://github.com/poanetwork/poa-bridge-contracts/blob/2bf70c7e9fd42968aec2dc352017618907834401/contracts/ERC677BridgeToken.sol#L55)). 
 
 *Status:* Fixed [PR48](https://github.com/poanetwork/poa-bridge-contracts/pull/48)
 
@@ -75,7 +75,7 @@ Severity: **Medium**
 
 Method `transfer` does not prevent tokens transfer to `ForeignBridgeNativeToErc`, but in this case `UserRequestForAffirmation(userAddr, value)` won't be fired.  I see `claimTokens` gonna help to reveal accidentally sent tokens, but prevention of that sending seems to be a good idea though.
 
-*Recomendations:* Implement same [`isContract`](https://github.com/poanetwork/poa-bridge-contracts/blob/refactor_v1/contracts/ERC677BridgeToken.sol#L31) check and `onTokenTransfer` call at `transfer` method. You can use `_to.call(abi.encodeWithSignature("onTokenTransfer(address,uint256,bytes)",  ...))` instead of `_to.onTokenTransfer(...)` to prevent the `revert` if token receiver has not that method. See example [here](https://gist.github.com/pertsev/7b839682954aa2a1d814554c13783e99).
+*Recomendations:* Implement same [`isContract`](https://github.com/poanetwork/poa-bridge-contracts/blob/2bf70c7e9fd42968aec2dc352017618907834401/contracts/ERC677BridgeToken.sol#L31) check and `onTokenTransfer` call at `transfer` method. You can use `_to.call(abi.encodeWithSignature("onTokenTransfer(address,uint256,bytes)",  ...))` instead of `_to.onTokenTransfer(...)` to prevent the `revert` if token receiver has not that method. See example [here](https://gist.github.com/pertsev/7b839682954aa2a1d814554c13783e99).
 
 *Status:* Fixed [PR 50](https://github.com/poanetwork/poa-bridge-contracts/pull/50)
 
@@ -85,12 +85,12 @@ Method `transfer` does not prevent tokens transfer to `ForeignBridgeNativeToErc`
 
 Severity: **Minor**
 
-[BasicHomeBridge.sol#L43](https://github.com/poanetwork/poa-bridge-contracts/blob/refactor_v1/contracts/upgradeable_contracts/BasicHomeBridge.sol#L43) Сontract does not check `message` entities within `submitSignature` func. 
+[BasicHomeBridge.sol#L43](https://github.com/poanetwork/poa-bridge-contracts/blob/2bf70c7e9fd42968aec2dc352017618907834401/contracts/upgradeable_contracts/BasicHomeBridge.sol#L43) Сontract does not check `message` entities within `submitSignature` func. 
 
 *Scenario:* If the attacker can spoof `recipient` or `value` by MITM attack between Ethereum node and Validator bridge software at the time of event grabbing, then Validator will sign and send the `message` with spoofed args. Due to lack of `message` checking, the contract will accept that signature silently. Note: MITM is not only one way to spoof those values, but I'm using that because it's possible right now for `bridge-nodejs`. See configuration [here](https://github.com/poanetwork/bridge-nodejs#env-variables)
     
 *Recommendations:* 
-1. Safe `msg.sender`, `msg.value` and `TxHash` (optional) at time of Ether receiving ([fallback func](https://github.com/poanetwork/poa-bridge-contracts/blob/refactor_v1/contracts/upgradeable_contracts/native_to_erc20/HomeBridgeNativeToErc.sol#L36)) and check it later (`submitSignature` func).
+1. Safe `msg.sender`, `msg.value` and `TxHash` (optional) at time of Ether receiving ([fallback func](https://github.com/poanetwork/poa-bridge-contracts/blob/2bf70c7e9fd42968aec2dc352017618907834401/contracts/upgradeable_contracts/native_to_erc20/HomeBridgeNativeToErc.sol#L36)) and check it later (`submitSignature` func).
 2. Use https only.
 
 *Roman's answer:* In solidity, there is no way to access txhash, so identifier could only be a hash of `msg.sender, value, now`
@@ -101,7 +101,7 @@ Severity: **Minor**
 
 Severity: **Medium**
 
-\*Bridge\* contacts don't handle exception situations at the time of token/ether transferring. [HomeBridgeNativeToErc.sol#L45](https://github.com/poanetwork/poa-bridge-contracts/blob/refactor_v1/contracts/upgradeable_contracts/native_to_erc20/HomeBridgeNativeToErc.sol#L45) - if recipient is contact which cannot receive ether (`revert()` at fallback func e.g), then `HomeBridgeNativeToErc` will throw exception and the whole TX will be reverted also. In the case of  Bridge Validators software does not ready to handle that, DOS possible.
+\*Bridge\* contacts don't handle exception situations at the time of token/ether transferring. [HomeBridgeNativeToErc.sol#L45](https://github.com/poanetwork/poa-bridge-contracts/blob/2bf70c7e9fd42968aec2dc352017618907834401/contracts/upgradeable_contracts/native_to_erc20/HomeBridgeNativeToErc.sol#L45) - if recipient is contact which cannot receive ether (`revert()` at fallback func e.g), then `HomeBridgeNativeToErc` will throw exception and the whole TX will be reverted also. In the case of  Bridge Validators software does not ready to handle that, DOS possible.
     
 *Recommendations:* Сountermeasures can be implemented at both smartcontract and Bridge software side. 
 
@@ -115,7 +115,7 @@ Severity: **Medium**
 
 Severity: **Minor**
 
-[BridgeValidators.sol#L30](https://github.com/poanetwork/poa-bridge-contracts/blob/refactor_v1/contracts/upgradeable_contracts/BridgeValidators.sol#L30). That check is redundant because of [this](https://github.com/poanetwork/poa-bridge-contracts/blob/refactor_v1/contracts/upgradeable_contracts/BridgeValidators.sol#L22) and [that](https://github.com/poanetwork/poa-bridge-contracts/blob/refactor_v1/contracts/upgradeable_contracts/BridgeValidators.sol#L25). 
+[BridgeValidators.sol#L30](https://github.com/poanetwork/poa-bridge-contracts/blob/2bf70c7e9fd42968aec2dc352017618907834401/contracts/upgradeable_contracts/BridgeValidators.sol#L30). That check is redundant because of [this](https://github.com/poanetwork/poa-bridge-contracts/blob/2bf70c7e9fd42968aec2dc352017618907834401/contracts/upgradeable_contracts/BridgeValidators.sol#L22) and [that](https://github.com/poanetwork/poa-bridge-contracts/blob/2bf70c7e9fd42968aec2dc352017618907834401/contracts/upgradeable_contracts/BridgeValidators.sol#L25). 
     
 *Recomendations*: Change `require(...);` to `assert(...);` or remove it.
 
@@ -125,7 +125,7 @@ Severity: **Minor**
 
 Severity: **Minor**
 
-`initialize` func set `requiredSignatures` var but does not generate `RequiredSignaturesChanged(requiredSignatures);` event. `setRequiredSignatures` does. Is it just not necessary or missed? `OwnershipTransferred` and `ValidatorAdded` are fired btw.
+[`initialize`](https://github.com/poanetwork/poa-bridge-contracts/blob/2bf70c7e9fd42968aec2dc352017618907834401/contracts/upgradeable_contracts/BridgeValidators.sol#L15) func set `requiredSignatures` var but does not generate `RequiredSignaturesChanged(requiredSignatures);` event. `setRequiredSignatures` does. Is it just not necessary or missed? `OwnershipTransferred` and `ValidatorAdded` are fired btw.
 
 *Recommendations*: Consider adding the `RequiredSignaturesChanged` emitting.
 
