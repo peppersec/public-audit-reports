@@ -3,6 +3,7 @@
 # Public audit reports
 This repo contains disclosure reports by PepperSec.
 
+* [POA DPOS consensus](https://github.com/peppersec/public-audit-reports/blob/master/reports_pdf/POA-DPOS-audit-report.pdf) *new*
 * [POA Network Bridge](https://github.com/peppersec/public-audit-reports/blob/master/reports_pdf/POA-Network-Bridge-audit-report.pdf)
 * [AIRA Lab Robonomic](https://github.com/peppersec/public-audit-reports/blob/master/reports_pdf/Aira-Robonomic-audit-report.pdf)
 * [POA Network Token wizard (Auth_os application)](https://github.com/peppersec/public-audit-reports/blob/master/reports_pdf/POA-Network-Wizard-audit-report.pdf)
