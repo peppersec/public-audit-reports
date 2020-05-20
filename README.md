@@ -3,6 +3,7 @@
 # Public audit reports
 This repo contains disclosure reports by PepperSec.
 
+* [1inch Protocol (1Split)](https://github.com/peppersec/public-audit-reports/blob/master/reports_pdf/1inch-Protocol-audit-report.pdf)
 * [KICKTOKEN](https://github.com/peppersec/public-audit-reports/blob/master/reports_pdf/KICKTOKEN-audit-report.pdf)
 * [POA DPOS consensus](https://github.com/peppersec/public-audit-reports/blob/master/reports_pdf/POA-DPOS-audit-report.pdf)
 * [POA Network Bridge](https://github.com/peppersec/public-audit-reports/blob/master/reports_pdf/POA-Network-Bridge-audit-report.pdf)
